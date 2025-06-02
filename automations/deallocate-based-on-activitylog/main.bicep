@@ -33,6 +33,10 @@
     2025-06-02
 
 .NOTES
+
+.RUN
+  1. Download 
+  2. Run with Azure CLI: az deployment group create --name ExampleDeployment --resource-group ExampleGroup --template-file <path-to-bicep
 */
 
 
