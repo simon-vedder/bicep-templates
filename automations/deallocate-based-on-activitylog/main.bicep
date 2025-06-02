@@ -106,9 +106,6 @@ resource activityLogAlert 'Microsoft.Insights/activityLogAlerts@2020-10-01' = {
       ]
     }
   }
-  dependsOn: [
-    actionGroup
-  ]
 }
 
 // logic app
