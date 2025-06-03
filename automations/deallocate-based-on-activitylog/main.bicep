@@ -34,11 +34,17 @@
 
 .NOTES
 
-.RUN
+.USAGE
   1. Download 
   2. Run with Azure CLI: az deployment group create --name ExampleDeployment --resource-group ExampleGroup --template-file <path-to-bicep
 */
 
+param defaultTags object = {
+  Author: 'Simon Vedder'
+  Contact: 'info@simonvedder.com'
+  Project: 'DeallocateStoppedVM'
+  ManagedBy: 'Bicep'
+}
 
 // api resources 
 resource apiConnection 'Microsoft.Web/connections@2016-06-01' = {
@@ -50,6 +56,7 @@ resource apiConnection 'Microsoft.Web/connections@2016-06-01' = {
       id: '${subscription().id}/providers/Microsoft.Web/locations/${resourceGroup().location}/managedApis/azurevm'
     }
   }
+  tags: defaultTags
 }
 
 // permission 
@@ -77,6 +84,7 @@ resource actionGroup 'Microsoft.Insights/actionGroups@2023-01-01' = {
       }
     ]
   }
+  tags: defaultTags
 }
 
 @description('Activity Log Alert for Resource Health - UserInitiated events on VMs')
@@ -110,6 +118,7 @@ resource activityLogAlert 'Microsoft.Insights/activityLogAlerts@2020-10-01' = {
       ]
     }
   }
+  tags: defaultTags
 }
 
 // logic app
@@ -119,6 +128,7 @@ resource logicApp 'Microsoft.Logic/workflows@2019-05-01' = {
   identity: {
     type: 'SystemAssigned'
   }
+  tags: defaultTags
   properties: {
     definition: {
       '$schema': 'https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#'
